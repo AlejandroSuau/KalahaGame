@@ -82,6 +82,11 @@ bool Board::isValidPlayerHoleChoice(const int hole_choice) const
 	return is_valid_idx && !is_hole_empty;
 }
 
+PiecesMover* Board::getPiecesMover() const
+{
+	return pieces_mover;
+}
+
 Player* Board::getActivePlayer() const
 {
 	return active_player;

@@ -21,6 +21,7 @@ public:
 	void playTurn();
 	int getPlayerHoleChoice() const;
 	bool isValidPlayerHoleChoice(const int hole_choice) const;
+	PiecesMover* getPiecesMover() const;
 
 	Player* getActivePlayer() const;
 	void switchActivePlayer();
