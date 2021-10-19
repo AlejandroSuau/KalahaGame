@@ -66,10 +66,23 @@ TEST_F(PiecesMoverTest, PiecesMoverEndsPieceOnEmptyHole)
 	ASSERT_TRUE(player_one->getPieces(), 6);
 	ASSERT_TRUE(player_two->getPieces(), 6);
 	
+	//    1  1  1  1  1  1
+	// 0					0
+	//	  1  1  1  1  1  1
+
 	ASSERT_EQ(board->getActivePlayer(), player_one);
 	pieces_mover->processPlayerChoice(1);
+
+	//    1  1  1  1  1  1
+	// 0					0
+	//	  1  0  2  1  1  1
+
 	ASSERT_EQ(board->getActivePlayer(), player_one);
 	pieces_mover->processPlayerChoice(0);
+
+	//    1  0  1  1  1  1
+	// 0					2
+	//	  0  0  2  1  1  1
 
 	ASSERT_TRUE(player_one->getBank()->getPiecesNumber(), 2);
 	ASSERT_TRUE(player_one->getPieces(), 5);

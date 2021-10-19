@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 
 class Hole
 {
@@ -12,6 +14,7 @@ public:
 	void removePieces(const int quantity);
 	int getPiecesNumber() const;
 	int operator+(Hole h);
+	friend std::ostream& operator<< (std::ostream& out, const Hole& h);
 
 protected:
 	int pieces_number_;

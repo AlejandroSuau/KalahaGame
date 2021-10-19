@@ -19,8 +19,8 @@ void Board::startGame()
 {
 	do {
 		printBoard();
-		printPlayerTurnHeader();
 		
+		std::cout << "\n" << active_player->getName() << " is playing ...\n";
 		playTurn();
 
 		if (pieces_mover->getSwitchActivePlayerAfterTurn()) {
@@ -34,11 +34,63 @@ void Board::startGame()
 
 void Board::printBoard()
 {
+	switchActivePlayer();
+	
+	printPlayerBoardHeader(active_player);
+
+	printBoardTopBorder();
+	printBoardBlankLine();
+	active_player->printHolesLine(true);
+	
+	printBoardBlankLine();
+	printBoardBanksLine();
+	printBoardBlankLine();
+	
+	active_player->printHolesLine();
+	printBoardBottomBorder();
+	
+	printPlayerBoardHeader(active_player);
 }
 
-void Board::printPlayerTurnHeader()
+void Board::printBoardTopBorder()
 {
-	
+	std::cout << " " << std::setw(BOARD_PRINT_LINE_WIDTH - 1) << std::setfill('_') << " ";
+}
+
+void Board::printBoardBottomBorder()
+{
+	std::cout << "\n|" << std::setw(BOARD_PRINT_LINE_WIDTH - 1) << std::setfill('_') << "|";
+}
+
+void Board::printBoardBlankLine()
+{
+	std::cout << "\n|" << std::setw(BOARD_PRINT_LINE_WIDTH - 1) << std::setfill(' ') << "|";
+}
+
+void Board::printBoardBanksLine()
+{
+	std::cout << "\n|  ";
+	std::cout << *(active_player->getBank());
+
+	switchActivePlayer();
+
+	int bank_spaces_between = BOARD_PRINT_LINE_WIDTH - 8;
+	int bank_pieces = active_player->getBank()->getPiecesNumber();
+	if (bank_pieces < 10) {
+		bank_spaces_between--;
+	}
+	std::cout << std::setw(bank_spaces_between) << std::setfill(' ');
+	std::cout << *(active_player->getBank()) << "  |";
+}
+
+void Board::printPlayerBoardHeader(Player* player)
+{
+	int half_string_length = player->getName().length() / 2;
+	int half_output_width = BOARD_PRINT_LINE_WIDTH / 2;
+	int leading_spaces = half_output_width - half_string_length;
+
+	std::cout << "\n\n" << std::setw(leading_spaces);
+	std::cout << std::setfill(' ') << "" << player->getName() << "\n";
 }
 
 void Board::playTurn()
@@ -65,9 +117,9 @@ int Board::getPlayerHoleChoice() const
 			std::cout << "\nError: Please enter a valid hole number";
 		}
 
-		std::cout << std::endl;
+		std::cout << "\n";
 		
-		return --hole_choice;
+		--hole_choice;
 	}
 
 	return hole_choice;
@@ -113,7 +165,7 @@ bool Board::isActivePlayer(Player* player) const
 
 bool Board::isGameEnd()
 {
-	return player_one_->getPieces() == 0 || player_two_->getPieces();
+	return player_one_->getPieces() == 0 || player_two_->getPieces() == 0;
 }
 
 void Board::processGameEnd()

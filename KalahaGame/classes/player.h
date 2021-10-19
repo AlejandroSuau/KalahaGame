@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 #include <array>
 
 #include "hole.hpp"
@@ -28,7 +29,6 @@ public:
 	void addPiecesToBank(const int quantity);
 	void addAllHolePiecesToBank();
 
-	void printInfo();
 	void printHolesLine(bool inverse = false);
 
 	std::string getName() const;

@@ -60,14 +60,27 @@ void Player::initializeHoles()
 	}
 }
 
-void Player::printInfo()
-{
-
-}
-
 void Player::printHolesLine(bool inverse)
 {
+	std::cout << "\n|";
+	std::cout << std::setw(6) << std::setfill(' ');
+	std::cout << "";
 
+	int start, end;
+	if (inverse) {
+		start = (holes_num_ - 1) *-1;
+		end = 1;
+	}
+	else {
+		start = 0;
+		end = holes_num_;
+	}
+
+	for (int i = start; i < end; i++) {
+		std::cout << holes[abs(i)] << "  ";
+	}
+
+	std::cout << std::setw(5) << std::setfill(' ') << "|";
 }
 
 std::string Player::getName() const

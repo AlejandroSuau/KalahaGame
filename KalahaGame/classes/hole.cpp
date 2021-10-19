@@ -41,3 +41,13 @@ int Hole::getPiecesNumber() const
 {
 	return pieces_number_;
 }
+
+
+std::ostream& operator<< (std::ostream& out, const Hole& h)
+{
+	if (h.pieces_number_ < 10) {
+		out << " ";
+	}
+	out << h.pieces_number_;
+	return out;
+}

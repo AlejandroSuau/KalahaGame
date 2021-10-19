@@ -1,8 +1,12 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
+
 #include "player.h"
 #include "pieces_mover.h"
+
+constexpr int BOARD_PRINT_LINE_WIDTH = 36;
 
 class Board
 {
@@ -11,13 +15,19 @@ class Board
 	Player* active_player;
 	PiecesMover* pieces_mover;
 
+	void printBoardTopBorder();
+	void printBoardBottomBorder();
+	void printBoardBlankLine();
+	void printBoardBanksLine();
+	void printPlayerBoardHeader(Player* player);
+
+
 public:
 	Board(Player* player_one, Player* player_two);
 	~Board();
 
 	void startGame();
 	void printBoard();
-	void printPlayerTurnHeader();
 	void playTurn();
 	int getPlayerHoleChoice() const;
 	bool isValidPlayerHoleChoice(const int hole_choice) const;
